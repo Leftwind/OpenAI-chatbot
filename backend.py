@@ -1,17 +1,19 @@
 import openai
+import os
+
 
 class Chatbot:
     def __init__(self):
-        openai.api_key = "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"
+        openai.api_key = os.getenv("OPENAI_API_KEY")
 
     def get_response(self, user_input):
-        response = openai.Completion.create(
-            engine="text-davinci-003",
+        response = openai.completions.create(
+            model="text-davinci-003",
             prompt=user_input,
             max_tokens=3000,
             temperature=0.5,
            
-        ).choice[0].text
+        ).choices[0].text
         return response
 
 
